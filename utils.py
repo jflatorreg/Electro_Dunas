@@ -1,7 +1,8 @@
 ip = '3.149.24.51'
 key_file = 'api_key.pem'
 
-#########################################################
+########################################################### Función que envía los archivos a AWS
+
 import subprocess
 
 def send_file_to_ec2(path, user, key_file, ip, local_file, remote_path):
@@ -20,7 +21,9 @@ def send_file_to_ec2(path, user, key_file, ip, local_file, remote_path):
     else:
         print('Archivo enviado con éxito')
         
-        
+
+###########################################################  Función que procesa el modelo en AWS
+
 def procesar_model(user, key_file, ip, local_file, variable):
     # Construir el comando SSH
     command = f"ssh -o StrictHostKeyChecking=no -i "+key_file+" "+user+"@"+ip+" python3 model.py ./temp_data/"+local_file+" "+ variable
@@ -52,7 +55,9 @@ def traer_archivo(user, key_file, ip, local_file, remote_path,file, variable):
     else:
         print('Fin del proceso')
         
-        
+ 
+###########################################################   Función que trae el archivo de AWS
+   
         
 def procesar(path, file, variable, user='ubuntu', llave='api_key.pem', ip=ip):
     send_file_to_ec2(path, user, llave, ip, file, '/home/ubuntu/temp_data/'+file)
